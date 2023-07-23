@@ -77,8 +77,8 @@ resource "aws_iam_policy" "eventbridge_role_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "eventbridge_role_policy_attachment" {
-  # policy_arn = aws_iam_policy.eventbridge_role_policy.arn
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = aws_iam_policy.eventbridge_role_policy.arn
+  # policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.eventbridge_role.name
 }
 
@@ -104,7 +104,7 @@ resource "aws_iam_policy" "eventbridge_target_role_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "eventbridge_target_role_policy_attachment" {
-  # policy_arn = aws_iam_policy.eventbridge_target_role_policy.arn
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = aws_iam_policy.eventbridge_target_role_policy.arn
+  # policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.eventbridge_target_role.name
 }

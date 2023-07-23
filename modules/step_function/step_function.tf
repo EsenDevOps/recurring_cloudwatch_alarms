@@ -82,7 +82,7 @@ resource "aws_iam_policy" "stepfunction_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "stepfunction_policy_attachment" {
-  # policy_arn = aws_iam_policy.stepfunction_policy.arn
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = aws_iam_policy.stepfunction_policy.arn
+  # policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.stepfunction_role.name
 }
