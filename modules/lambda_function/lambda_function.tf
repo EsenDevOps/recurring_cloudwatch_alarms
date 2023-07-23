@@ -6,7 +6,7 @@ resource "aws_lambda_function" "notification_lambda" {
   runtime       = "python3.10"    # Change this to your desired runtime
   environment {
     variables = {
-      TagForRepeatedNotification = "${var.tag_for_fepeated_notification}"
+      TagForRepeatedNotification = "${var.tag_for_repeated_notification}"
       # Add more environment variables as needed
     }
   }
