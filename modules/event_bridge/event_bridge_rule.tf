@@ -4,7 +4,12 @@ resource "aws_cloudwatch_event_rule" "eventbridge_rule" {
   event_pattern = <<EOF
 {
   "source": ["aws.cloudwatch"],
-  "detail-type": ["CloudWatch Alarm State Change"]
+  "detail-type": ["CloudWatch Alarm State Change"],
+  "detail": {
+    "state": {
+      "value": ["ALARM"]
+    }
+  }
 }
 EOF
 }
