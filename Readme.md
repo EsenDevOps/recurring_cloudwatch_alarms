@@ -1,6 +1,6 @@
 # Recurring cloudwatch alarms
 
-![notification_graph](https://github.com/aws-samples/amazon-cloudwatch-alarms-repeated-notification-cdk/blob/main/images/Solution_Architecture_eb.png?raw=true)
+[notification_graph](https://github.com/aws-samples/amazon-cloudwatch-alarms-repeated-notification-cdk/blob/main/images/Solution_Architecture_eb.png?raw=true)
 
 ## Prereqesuites
 
