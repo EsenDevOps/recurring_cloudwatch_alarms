@@ -1,6 +1,6 @@
 # Recurring cloudwatch alarms
 
-The recurring_alarms script automates the process of setting up recurring CloudWatch alarms for AWS resources.
+The recurring alarms script automates the process of setting up recurring CloudWatch alarms for AWS resources.
 
 ## Prereqesuites
 
