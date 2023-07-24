@@ -1,5 +1,7 @@
 # Recurring cloudwatch alarms
 
+The recurring alarms script automates the process of setting up recurring CloudWatch alarms for AWS resources.
+
 ## Prereqesuites
 
 ```
@@ -24,8 +26,12 @@
 
 1. cd into repositoty directory ```cd ./recurring_cloudwatch_alarms```
 2. change variables in variables.tfvars file if needed
+- region, region in which resources will be provisioned (by default "us-east-1")
+- tag_for_repeated_notificationtag_for_repeated_notification, tag that you need to add to cloudwatch alarm, should be "key:value" string (by default "RepeatedAlarm:true")
+- wait_seconds, interval between messages, it must be a number (by default 5)  
 3. init terraform ```terraform init ```
 4. run ```terraform apply -var-file=variables.tfvars```
 
 ## Notes
-1. these scripts cannot be run in China regions.
+1. these scripts cannot be run in China regions
+2. script doesn't craete cloudwatch alarm, do it on your own, don't forget to add tag, you specified in variables.tfvars file
