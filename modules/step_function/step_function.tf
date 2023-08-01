@@ -68,12 +68,7 @@ resource "aws_iam_policy" "stepfunction_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = ["states:*"],
-        Effect = "Allow",
-        Resource = "${aws_sfn_state_machine.step_function.arn}"
-      },
-      {
-        Action = ["lambda:*"],
+        Action = ["lambda:InvokeFunction"],
         Effect = "Allow",
         Resource = "${var.lambda_function_arn}"
       }

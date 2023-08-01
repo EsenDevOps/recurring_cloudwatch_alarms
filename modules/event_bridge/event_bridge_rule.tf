@@ -3,13 +3,13 @@ resource "aws_cloudwatch_event_rule" "eventbridge_rule" {
   description = "EventBridge rule to capture all alarms' state change events"
   event_pattern = <<EOF
 {
-  "source": ["aws.cloudwatch"],
-  "detail-type": ["CloudWatch Alarm State Change"],
   "detail": {
     "state": {
       "value": ["ALARM"]
     }
-  }
+  },
+  "detail-type": ["CloudWatch Alarm State Change"],
+  "source": ["aws.cloudwatch"]
 }
 EOF
 }
@@ -63,19 +63,11 @@ resource "aws_iam_policy" "eventbridge_role_policy" {
     Version   = "2012-10-17"
     Statement = [
       {
-        Action   = ["events:*"],
-        Effect   = "Allow",
-        Resource = "${aws_cloudwatch_event_rule.eventbridge_rule.arn}"
-      },
-      {
-        Action = ["cloudwatch:*"],
+        Action = [
+				  "cloudwatch:DescribeAlarms"
+        ],
         Effect   = "Allow",
         Resource = "*"
-      },
-      {
-        Action   = ["states:*"],
-        Effect   = "Allow",
-        Resource = var.step_function_arn
       }
     ]
   })
@@ -100,7 +92,11 @@ resource "aws_iam_policy" "eventbridge_target_role_policy" {
         Resource = "${var.step_function_arn}"
       },
       {
-        Action   = ["events:*"],
+        Action   = [
+          "states:ListStateMachines",
+          "states:CreateActivity",
+          "states:StartExecution"
+        ],
         Effect   = "Allow",
         Resource = "${aws_cloudwatch_event_target.step_function_target.arn}"
       }

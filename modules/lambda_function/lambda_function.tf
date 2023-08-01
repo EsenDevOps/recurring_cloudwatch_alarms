@@ -30,25 +30,27 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 resource "aws_iam_policy" "lambda_policy" {
-  name        = "EventBridgeTargetRoleInlinePolicy"
-  description = "Inline policy for EventBridge Target IAM role"
+  name        = "LambdaRoleInlinePolicy"
+  description = "Inline policy for Lambda IAM role"
 
   policy = jsonencode({
       Version = "2012-10-17"
       Statement = [
         {
           Effect   = "Allow"
-          Action   = ["lambda:*"]
-          Resource = "${aws_lambda_function.notification_lambda.arn}"
-        },
-        {
-          Effect   = "Allow"
-          Action   = ["cloudwatch:*"]
+          Action   = [
+            "cloudwatch:ListTagsForResource",
+            "cloudwatch:DescribeAlarms",
+            "cloudwatch:SetAlarmState"
+          ],
           Resource = "*"
         },
         {
           Effect   = "Allow"
-          Action   = ["sns:publish"]
+          Action   = [
+            "sns:publish",
+            "sns:ListTopics"
+          ]
           Resource = "*"
         }
       ]
