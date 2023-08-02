@@ -21,23 +21,6 @@ resource "aws_cloudwatch_event_target" "step_function_target" {
   role_arn  = aws_iam_role.eventbridge_target_role.arn
 }
 
-resource "aws_iam_role" "eventbridge_role" {
-  name = "EventBridgeRole"
-
-  assume_role_policy = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-      {
-        Action    = "sts:AssumeRole"
-        Effect    = "Allow"
-        Principal = {
-          Service = "events.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
 resource "aws_iam_role" "eventbridge_target_role" {
   name = "EventBridgeTargetRole"
 
@@ -53,30 +36,6 @@ resource "aws_iam_role" "eventbridge_target_role" {
       }
     ]
   })
-}
-
-resource "aws_iam_policy" "eventbridge_role_policy" {
-  name        = "EventBridgeRoleInlinePolicy"
-  description = "Inline policy for EventBridge IAM role"
-
-  policy = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-		"cloudwatch:DescribeAlarms"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "eventbridge_role_policy_attachment" {
-  policy_arn = aws_iam_policy.eventbridge_role_policy.arn
-  # policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-  role = aws_iam_role.eventbridge_role.name
 }
 
 resource "aws_iam_policy" "eventbridge_target_role_policy" {
@@ -106,6 +65,5 @@ resource "aws_iam_policy" "eventbridge_target_role_policy" {
 
 resource "aws_iam_role_policy_attachment" "eventbridge_target_role_policy_attachment" {
   policy_arn = aws_iam_policy.eventbridge_target_role_policy.arn
-  # policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.eventbridge_target_role.name
 }
