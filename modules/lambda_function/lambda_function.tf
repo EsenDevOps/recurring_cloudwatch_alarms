@@ -40,8 +40,7 @@ resource "aws_iam_policy" "lambda_policy" {
           Effect   = "Allow"
           Action   = [
             "cloudwatch:ListTagsForResource",
-            "cloudwatch:DescribeAlarms",
-            "cloudwatch:SetAlarmState"
+            "cloudwatch:DescribeAlarms"
           ],
           Resource = "*"
         },
