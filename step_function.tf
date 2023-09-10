@@ -13,7 +13,7 @@ resource "aws_sfn_state_machine" "step_function" {
     },
     "LambdaTask": {
       "Type": "Task",
-      "Resource": "${var.lambda_function_arn}",
+      "Resource": "${aws_lambda_function.notification_lambda.arn}",
       "Next": "ChoiceTask"
     },
     "ChoiceTask": {
@@ -70,7 +70,7 @@ resource "aws_iam_policy" "stepfunction_policy" {
       {
         Action = ["lambda:InvokeFunction"],
         Effect = "Allow",
-        Resource = "${var.lambda_function_arn}"
+        Resource = aws_lambda_function.notification_lambda.arn
       }
     ]
   })
