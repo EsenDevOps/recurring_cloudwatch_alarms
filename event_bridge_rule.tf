@@ -16,7 +16,7 @@ EOF
 
 resource "aws_cloudwatch_event_target" "step_function_target" {
   rule      = aws_cloudwatch_event_rule.eventbridge_rule.name
-  arn       = var.step_function_arn
+  arn       = aws_sfn_state_machine.step_function.arn
   target_id = "my_target"
   role_arn  = aws_iam_role.eventbridge_target_role.arn
 }
@@ -48,7 +48,7 @@ resource "aws_iam_policy" "eventbridge_target_role_policy" {
       {
         Action   = ["states:*"],
         Effect   = "Allow",
-        Resource = "${var.step_function_arn}"
+        Resource = aws_sfn_state_machine.step_function.arn
       },
       {
         Action   = [
