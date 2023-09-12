@@ -3,16 +3,6 @@ variable "region" {
   default     = "us-east-1"
 }
 
-//event bridge variables
-
-variable "cloudwatch_alarm_tag_key" {
-  default = "send-repeated-notification"
-}
-
-variable "cloudwatch_alarm_tag_value" {
-  default = "true"
-}
-
 // lambda function variables
 
 variable "tag_for_repeated_notification" {
@@ -23,4 +13,14 @@ variable "tag_for_repeated_notification" {
 variable "wait_seconds" {
   type    = number
   default = 30
+}
+
+variable bucket_id {
+  type        = string
+  default     = "recurring-lambda-code"
+}
+
+variable object_key {
+  type        = string
+  default     = "lambda_py.zip"
 }

@@ -1,5 +1,6 @@
 resource "aws_lambda_function" "notification_lambda" {
-  filename      = "./lambda_py.zip"  # Path to your Lambda function's ZIP file
+  s3_bucket = var.bucket_id
+  s3_key = var.object_key
   function_name = "MyNotificationLambda"
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.lambda_handler"  # Change this to your Lambda function's entry point
@@ -51,6 +52,13 @@ resource "aws_iam_policy" "lambda_policy" {
             "sns:ListTopics"
           ]
           Resource = "*"
+        },
+        {
+          Effect   = "Allow"
+          Action   = [
+            "s3:GetObject"
+          ]
+          Resource = "arn:aws:s3:::${var.bucket_id}/${var.object_key}" 
         }
       ]
     })
